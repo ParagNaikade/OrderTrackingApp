@@ -1,0 +1,82 @@
+version: '3.8'
+
+services:
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: ${SA_PASSWORD}
+      ACCEPT_EULA: "Y"
+    volumes:
+      - sqlvolume:/var/opt/mssql
+
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    volumes:
+      - mongodata:/data/db
+
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+  api:
+    build:
+      context: .
+      dockerfile: OrderTrackingApp.Api/Dockerfile
+    container_name: api
+    ports:
+      - "5000:80"
+    depends_on:
+      - sqlserver
+      - rabbitmq
+      - mongodb
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=OrderDb;User=sa;Password=${SA_PASSWORD};
+      - ConnectionStrings__MongoDb=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongodb:27017
+
+  consumer:
+    build:
+      context: .
+      dockerfile: OrderTrackingApp.Consumer/Dockerfile
+    container_name: consumer
+    depends_on:
+      - sqlserver
+      - rabbitmq
+      - mongodb
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=OrderDb;User=sa;Password=${SA_PASSWORD};
+      - ConnectionStrings__MongoDb=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongodb:27017
+
+  blazor-server:
+    build:
+      context: .
+      dockerfile: OrderTrackingApp.Blazor.Server/Dockerfile
+    container_name: blazor-server
+    ports:
+      - "7000:80"
+    depends_on:
+      - api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ApiBaseUrl=http://api:80
+
+volumes:
+  sqlvolume:
+  mongodata:
