@@ -1,5 +1,4 @@
-using OrderTrackingApp.Client.Pages;
-using OrderTrackingApp.Components;
+using OrderTrackingApp.Blazor.Server.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +29,6 @@ app.UseAntiforgery();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
-    .AddAdditionalAssemblies(typeof(OrderTrackingApp.Client._Imports).Assembly);
+    .AddAdditionalAssemblies(typeof(OrderTrackingApp.Blazor.Client._Imports).Assembly);
 
 app.Run();

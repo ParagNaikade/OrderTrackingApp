@@ -3,29 +3,29 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36203.30 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.Blazor.Server", "OrderTrackingApp\OrderTrackingApp.Blazor.Server.csproj", "{C0F58571-B42E-4301-BD65-F3E939EA37AA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.Blazor.Server", "OrderTrackingApp.Blazor.Server\OrderTrackingApp.Blazor.Server.csproj", "{C0F58571-B42E-4301-BD65-F3E939EA37AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.Blazor.Client", "OrderTrackingApp.Client\OrderTrackingApp.Blazor.Client.csproj", "{F4760EDE-BA06-4095-B2B5-6221E2EAC48F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.Blazor.Client", "OrderTrackingApp.Blazor.Client\OrderTrackingApp.Blazor.Client.csproj", "{F4760EDE-BA06-4095-B2B5-6221E2EAC48F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{D901624D-8396-4393-B3AE-7D8405C89D69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.Api", "..\OrderTrackingApp.Api\OrderTrackingApp.Api.csproj", "{4957811C-F9FB-4259-9E1B-7F7275E75DDB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.Api", "OrderTrackingApp.Api\OrderTrackingApp.Api.csproj", "{4957811C-F9FB-4259-9E1B-7F7275E75DDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.SignalR", "..\OrderTrackingApp.SignalR\OrderTrackingApp.SignalR.csproj", "{8D2C3C59-0A56-4DFD-ABDD-D2C7521C351D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.SignalR", "OrderTrackingApp.SignalR\OrderTrackingApp.SignalR.csproj", "{8D2C3C59-0A56-4DFD-ABDD-D2C7521C351D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.Application", "..\OrderTrackingApp.Application\OrderTrackingApp.Application.csproj", "{059A6F30-A0CC-4371-853A-50C76C01FEEE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.Application", "OrderTrackingApp.Application\OrderTrackingApp.Application.csproj", "{059A6F30-A0CC-4371-853A-50C76C01FEEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.Domain", "..\OrderTrackingApp.Domain\OrderTrackingApp.Domain.csproj", "{FE84DD55-5B8A-4629-85FC-5E403D1EFADB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.Domain", "OrderTrackingApp.Domain\OrderTrackingApp.Domain.csproj", "{FE84DD55-5B8A-4629-85FC-5E403D1EFADB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.Infrastructure", "..\OrderTrackingApp.Infrastructure\OrderTrackingApp.Infrastructure.csproj", "{F8E303DF-A47D-41C5-AF05-9673DAF4033A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.Infrastructure", "OrderTrackingApp.Infrastructure\OrderTrackingApp.Infrastructure.csproj", "{F8E303DF-A47D-41C5-AF05-9673DAF4033A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.Persistence", "..\OrderTrackingApp.Persistence\OrderTrackingApp.Persistence.csproj", "{E0B58B04-C47B-42D8-8AC5-0134B811855C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.Persistence", "OrderTrackingApp.Persistence\OrderTrackingApp.Persistence.csproj", "{E0B58B04-C47B-42D8-8AC5-0134B811855C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.Consumer", "..\OrderTrackingApp.Consumer\OrderTrackingApp.Consumer.csproj", "{3885E6E2-5813-4669-9295-051E8BEA9B0F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.Consumer", "OrderTrackingApp.Consumer\OrderTrackingApp.Consumer.csproj", "{3885E6E2-5813-4669-9295-051E8BEA9B0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.ReadPersistence", "..\OrderTrackingApp.ReadPersistence\OrderTrackingApp.ReadPersistence.csproj", "{AC2F58F3-C7DF-4908-83B9-98841B365CA9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.ReadPersistence", "OrderTrackingApp.ReadPersistence\OrderTrackingApp.ReadPersistence.csproj", "{AC2F58F3-C7DF-4908-83B9-98841B365CA9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

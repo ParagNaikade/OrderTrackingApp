@@ -7,8 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OrderTrackingApp.Client\OrderTrackingApp.Blazor.Client.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.17" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OrderTrackingApp.Blazor.Client\OrderTrackingApp.Blazor.Client.csproj" />
   </ItemGroup>
 
 </Project>

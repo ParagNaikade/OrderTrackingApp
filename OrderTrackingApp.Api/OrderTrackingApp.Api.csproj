@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>fd420179-d5b0-44df-b29b-018fbfbdb9f1</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\OrderTrackingApp</DockerfileContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OrderTrackingApp.Persistence\OrderTrackingApp.Persistence.csproj" />
+    <ProjectReference Include="..\OrderTrackingApp.ReadPersistence\OrderTrackingApp.ReadPersistence.csproj" />
+  </ItemGroup>
+
+</Project>
