@@ -1,25 +1,23 @@
-# Stage 1: Build
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+WORKDIR /app
+EXPOSE 8080
+
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-COPY ../OrderTrackingApp.sln ./
+COPY ["OrderTrackingApp.Blazor.Server/OrderTrackingApp.Blazor.Server.csproj", "OrderTrackingApp.Blazor.Server/"]
+COPY ["OrderTrackingApp.Blazor.Client/OrderTrackingApp.Blazor.Client.csproj", "OrderTrackingApp.Blazor.Client/"]
 
-COPY ../OrderTrackingApp.Blazor.Server/*.csproj ./OrderTrackingApp.Blazor.Server/
-COPY ../OrderTrackingApp.Blazor.Client/*.csproj ./OrderTrackingApp.Blazor.Client/
+RUN dotnet restore "OrderTrackingApp.Blazor.Server/OrderTrackingApp.Blazor.Server.csproj"
 
-RUN dotnet restore
+COPY . .
 
-COPY ../ ./
+WORKDIR "/src/OrderTrackingApp.Blazor.Server"
+RUN dotnet publish -c Release -o /app/publish --no-restore
 
-WORKDIR /src/OrderTrackingApp.Blazor.Server
-RUN dotnet publish -c Release -o /out
-
-# Stage 2: Runtime
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+FROM base AS final
 WORKDIR /app
-COPY --from=build /out .
+COPY --from=publish /app/publish .
 
-ENV ASPNETCORE_URLS=http://+:80
-EXPOSE 80
-
+# Start the app
 ENTRYPOINT ["dotnet", "OrderTrackingApp.Blazor.Server.dll"]

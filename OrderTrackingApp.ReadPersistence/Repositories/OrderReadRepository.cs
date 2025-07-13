@@ -1,11 +1,6 @@
 ﻿using MongoDB.Driver;
 using OrderTrackingApp.Application.DTOs;
 using OrderTrackingApp.ReadPersistence.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OrderTrackingApp.ReadPersistence.Repositories
 {
