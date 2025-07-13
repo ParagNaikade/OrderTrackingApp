@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
 
   sqlserver:
@@ -40,7 +38,7 @@ services:
       dockerfile: OrderTrackingApp.Api/Dockerfile
     container_name: api
     ports:
-      - "5000:80"
+      - "5000:8080"
     depends_on:
       - sqlserver
       - rabbitmq
@@ -64,18 +62,18 @@ services:
       - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=OrderDb;User=sa;Password=${SA_PASSWORD};
       - ConnectionStrings__MongoDb=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongodb:27017
 
-  blazor-server:
-    build:
-      context: .
-      dockerfile: OrderTrackingApp.Blazor.Server/Dockerfile
-    container_name: blazor-server
-    ports:
-      - "7000:80"
-    depends_on:
-      - api
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-      - ApiBaseUrl=http://api:80
+  # blazor-server:
+  #   build:
+  #     context: .
+  #     dockerfile: OrderTrackingApp.Blazor.Server/Dockerfile
+  #   container_name: blazor-server
+  #   ports:
+  #     - "7000:80"
+  #   depends_on:
+  #     - api
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Production
+  #     - ApiBaseUrl=http://api:80
 
 volumes:
   sqlvolume:

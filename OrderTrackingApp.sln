@@ -3,14 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36203.30
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.Blazor.Server", "OrderTrackingApp.Blazor.Server\OrderTrackingApp.Blazor.Server.csproj", "{C0F58571-B42E-4301-BD65-F3E939EA37AA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.Blazor.Client", "OrderTrackingApp.Blazor.Client\OrderTrackingApp.Blazor.Client.csproj", "{F4760EDE-BA06-4095-B2B5-6221E2EAC48F}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 	ProjectSection(SolutionItems) = preProject
 		.env = .env
+		docker-compose.override.yml = docker-compose.override.yml
 		docker-compose.yml = docker-compose.yml
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{D901624D-8396-4393-B3AE-7D8405C89D69}"
@@ -29,20 +27,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.ReadPersis
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.Consumer", "OrderTrackingApp.Consumer\OrderTrackingApp.Consumer.csproj", "{773AD28D-63B8-4A78-90D0-A5282F3BAFDD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.Blazor.Server", "OrderTrackingApp.Blazor.Server\OrderTrackingApp.Blazor.Server.csproj", "{1FD0A91F-99A3-4D45-AA2B-3081183FEAC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.Blazor.Client", "OrderTrackingApp.Blazor.Client\OrderTrackingApp.Blazor.Client.csproj", "{43A85AAD-5188-4103-BEF6-F88971B638F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C0F58571-B42E-4301-BD65-F3E939EA37AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C0F58571-B42E-4301-BD65-F3E939EA37AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C0F58571-B42E-4301-BD65-F3E939EA37AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C0F58571-B42E-4301-BD65-F3E939EA37AA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F4760EDE-BA06-4095-B2B5-6221E2EAC48F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F4760EDE-BA06-4095-B2B5-6221E2EAC48F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F4760EDE-BA06-4095-B2B5-6221E2EAC48F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F4760EDE-BA06-4095-B2B5-6221E2EAC48F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4957811C-F9FB-4259-9E1B-7F7275E75DDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4957811C-F9FB-4259-9E1B-7F7275E75DDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4957811C-F9FB-4259-9E1B-7F7275E75DDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -71,13 +65,19 @@ Global
 		{773AD28D-63B8-4A78-90D0-A5282F3BAFDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{773AD28D-63B8-4A78-90D0-A5282F3BAFDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{773AD28D-63B8-4A78-90D0-A5282F3BAFDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FD0A91F-99A3-4D45-AA2B-3081183FEAC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FD0A91F-99A3-4D45-AA2B-3081183FEAC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FD0A91F-99A3-4D45-AA2B-3081183FEAC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FD0A91F-99A3-4D45-AA2B-3081183FEAC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43A85AAD-5188-4103-BEF6-F88971B638F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43A85AAD-5188-4103-BEF6-F88971B638F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43A85AAD-5188-4103-BEF6-F88971B638F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43A85AAD-5188-4103-BEF6-F88971B638F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{C0F58571-B42E-4301-BD65-F3E939EA37AA} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
-		{F4760EDE-BA06-4095-B2B5-6221E2EAC48F} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{4957811C-F9FB-4259-9E1B-7F7275E75DDB} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{059A6F30-A0CC-4371-853A-50C76C01FEEE} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{FE84DD55-5B8A-4629-85FC-5E403D1EFADB} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
@@ -85,6 +85,8 @@ Global
 		{E0B58B04-C47B-42D8-8AC5-0134B811855C} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{AC2F58F3-C7DF-4908-83B9-98841B365CA9} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{773AD28D-63B8-4A78-90D0-A5282F3BAFDD} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{1FD0A91F-99A3-4D45-AA2B-3081183FEAC3} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{43A85AAD-5188-4103-BEF6-F88971B638F2} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ECFA56EC-C322-4A64-8936-E930A2EEBE28}
