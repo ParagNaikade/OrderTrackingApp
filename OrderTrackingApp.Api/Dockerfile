@@ -12,12 +12,20 @@ COPY ["OrderTrackingApp.Infrastructure/OrderTrackingApp.Infrastructure.csproj", 
 COPY ["OrderTrackingApp.Persistence/OrderTrackingApp.Persistence.csproj", "OrderTrackingApp.Persistence/"]
 COPY ["OrderTrackingApp.ReadPersistence/OrderTrackingApp.ReadPersistence.csproj", "OrderTrackingApp.ReadPersistence/"]
 
+# Copy your root certificate into the container
+COPY nscacert.crt /usr/local/share/ca-certificates/nscacert.crt
+
+# Update the certificate store
+RUN update-ca-certificates
+
+RUN dotnet restore "OrderTrackingApp.Api/OrderTrackingApp.Api.csproj"
+
 COPY . .
 
-RUN dotnet build "OrderTrackingApp.Api/OrderTrackingApp.Api.csproj" -c Release -o /app/build
+RUN dotnet build "OrderTrackingApp.Api/OrderTrackingApp.Api.csproj" -c Release -o /app/build --no-restore
 
 FROM build AS publish
-RUN dotnet publish "OrderTrackingApp.Api/OrderTrackingApp.Api.csproj" -c Release -o /app/publish
+RUN dotnet publish "OrderTrackingApp.Api/OrderTrackingApp.Api.csproj" -c Release -o /app/publish --no-restore
 
 FROM base AS final
 WORKDIR /app
