@@ -5,14 +5,14 @@ services:
     ports:
       - "1433:1433"
     environment:
-      SA_PASSWORD: ${SA_PASSWORD:-Your_password123}
+      SA_PASSWORD: ${SA_PASSWORD}
       ACCEPT_EULA: "Y"
     volumes:
       - sql_data:/var/opt/mssql
     healthcheck:
       test: ["CMD-SHELL", "echo > /dev/tcp/localhost/1433"]
       interval: 10s
-      timeout: 5s
+      timeout: 100s
       retries: 10
 
   mongodb:
@@ -21,8 +21,8 @@ services:
     ports:
       - "27017:27017"
     environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME:-admin}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD:-password}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
     volumes:
       - mongo_data:/data/db
     healthcheck:
