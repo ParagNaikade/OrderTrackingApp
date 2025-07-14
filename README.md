@@ -15,7 +15,7 @@ docker build -f OrderTrackingApp.Api/Dockerfile -t ordertrackingapp-api .
 # Run
  docker run -it --rm -v "$(Get-Location):/app" -w /app/OrderTrackingApp.Api -p 5000:8080 mcr.microsoft.com/dotnet/sdk:8.0 dotnet watch run --urls=http://0.0.0.0:8080
 
-#Run within corporate network where internet is not available and need to use company certificates
+# Run within corporate network where internet is not available and need to use company certificates
 docker run -it --rm -v "$(Get-Location):/app" -v "$(Get-Location)/nscacert.crt:/usr/local/share/ca-certificates/nscacert.crt:ro" -w /app/OrderTrackingApp.Api -p 5000:8080 mcr.microsoft.com/dotnet/sdk:8.0 bash -c "update-ca-certificates && dotnet watch run --urls=http://0.0.0.0:8080"
 ```
 
@@ -28,7 +28,7 @@ docker build -f OrderTrackingApp.Consumer/Dockerfile -t ordertrackingapp-consume
 # Run
  docker run -it --rm -v "$(Get-Location):/app" -w /app/OrderTrackingApp.Consumer mcr.microsoft.com/dotnet/sdk:8.0 dotnet watch run
 
-#Run within corporate network where internet is not available and need to use company certificates
+# Run within corporate network where internet is not available and need to use company certificates
  docker run -it --rm -v "$(Get-Location):/app" -v "$(Get-Location)/nscacert.crt:/usr/local/share/ca-certificates/nscacert.crt:ro" -w /app/OrderTrackingApp.Consumer mcr.microsoft.com/dotnet/sdk:8.0 bash -c "update-ca-certificates && dotnet watch run"
 ```
 

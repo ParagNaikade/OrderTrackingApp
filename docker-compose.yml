@@ -90,7 +90,7 @@ services:
       - api
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - ApiBaseUrl=http://api:80
+      - ApiBaseUrl=http://api:8080
 
 volumes:
   sql_data:
