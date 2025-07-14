@@ -5,12 +5,16 @@ services:
     ports:
       - "1433:1433"
     environment:
-      SA_PASSWORD: ${SA_PASSWORD}
+      MSSQL_SA_PASSWORD: ${SA_PASSWORD}
       ACCEPT_EULA: "Y"
     volumes:
       - sql_data:/var/opt/mssql
     healthcheck:
-      test: ["CMD-SHELL", "echo > /dev/tcp/localhost/1433"]
+      test:
+        [
+          "CMD-SHELL",
+          '/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "$${SA_PASSWORD}" -Q "SELECT 1"',
+        ]
       interval: 10s
       timeout: 100s
       retries: 10
