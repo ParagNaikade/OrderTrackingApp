@@ -1,5 +1,4 @@
 services:
-
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: sqlserver
@@ -11,7 +10,7 @@ services:
     volumes:
       - sql_data:/var/opt/mssql
     healthcheck:
-      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "${SA_PASSWORD:-Your_password123}", "-Q", "SELECT 1"]
+      test: ["CMD-SHELL", "echo > /dev/tcp/localhost/1433"]
       interval: 10s
       timeout: 5s
       retries: 10
