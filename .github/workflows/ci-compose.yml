@@ -1,0 +1,79 @@
+name: CI - Docker Compose Build & Run
+
+on:
+  push:
+    branches: [develop, master]
+  pull_request:
+    branches: [develop, master]
+
+jobs:
+  compose-ci:
+    runs-on: ubuntu-latest
+
+    env:
+      SA_PASSWORD: ${{ secrets.SA_PASSWORD }}
+      MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
+      MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build & start containers
+        run: |
+          docker compose build
+          docker compose up -d
+
+      - name: Wait for SQL Server to be healthy
+        run: |
+          until [ "$(docker inspect -f '{{.State.Health.Status}}' sqlserver)" == "healthy" ]; do
+            echo "Waiting for SQL Server..."
+            sleep 5
+          done
+
+      - name: Wait for MongoDB to be healthy
+        run: |
+          until [ "$(docker inspect -f '{{.State.Health.Status}}' mongodb)" == "healthy" ]; do
+            echo "Waiting for MongoDB..."
+            sleep 5
+          done
+
+      - name: Wait for RabbitMQ to be healthy
+        run: |
+          until [ "$(docker inspect -f '{{.State.Health.Status}}' rabbitmq)" == "healthy" ]; do
+            echo "Waiting for RabbitMQ..."
+            sleep 5
+          done
+
+      - name: Check API is responding
+        run: |
+          for i in {1..10}; do
+            if curl -s http://localhost:5000/health || curl -s http://localhost:5000; then
+              echo "API is up"
+              exit 0
+            fi
+            echo "Waiting for API..."
+            sleep 5
+          done
+          echo "API did not respond in time"
+          exit 1
+
+      - name: Check Blazor Server is responding
+        run: |
+          for i in {1..10}; do
+            if curl -s http://localhost:7000; then
+              echo "Blazor Server is up"
+              exit 0
+            fi
+            echo "Waiting for Blazor Server..."
+            sleep 5
+          done
+          echo "Blazor Server did not respond in time"
+          exit 1
+
+      - name: Tear down containers
+        if: always()
+        run: docker compose down --volumes

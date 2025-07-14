@@ -1,4 +1,6 @@
-﻿# 🧱 OrderTrackingApp - Docker Commands
+﻿[![CI](https://github.com/ParagNaikade/OrderTrackingApp/actions/workflows/ci-compose.yml/badge.svg?branch=develop)](https://github.com/ParagNaikade/OrderTrackingApp/actions/workflows/ci-compose.yml)
+
+# 🧱 OrderTrackingApp - Docker Commands
 
 This section lists the Docker build and run commands for each project in the solution.
 
