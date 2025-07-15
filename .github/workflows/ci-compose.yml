@@ -1,4 +1,4 @@
-name: CI - Docker Compose Build & Run
+name: Parallel Docker Builds with Cache
 
 on:
   push:
@@ -7,82 +7,38 @@ on:
     branches: [develop, master]
 
 jobs:
-  compose-ci:
+  build-docker:
     runs-on: ubuntu-latest
-
-    env:
-      SA_PASSWORD: ${{ secrets.SA_PASSWORD }}
-      MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
-      MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
+    strategy:
+      matrix:
+        include:
+          - dockerfile: OrderTrackingApp.Api/Dockerfile
+            image-name: ordertrackingapp-api
+          - dockerfile: OrderTrackingApp.Consumer/Dockerfile
+            image-name: ordertrackingapp-consumer
+          - dockerfile: OrderTrackingApp.Blazor.Server/Dockerfile
+            image-name: ordertrackingapp-blazor-server
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
 
-      - name: Build and start containers
+      - name: Cache Docker layers
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ matrix.image-name }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Build Docker image with cache
         run: |
-          docker compose build
-          docker compose up -d
-
-      - name: Wait for containers to become healthy
-        run: |
-          wait_for_health() {
-            local container_name=$1
-            local timeout=${2:-30}
-            local interval=5
-            local elapsed=0
-
-            echo "⏳ Waiting for '$container_name' to become healthy (timeout: ${timeout}s)..."
-
-            while [ "$(docker inspect -f '{{.State.Health.Status}}' $container_name)" != "healthy" ]; do
-              if [ "$elapsed" -ge "$timeout" ]; then
-                echo "❌ Timeout: $container_name did not become healthy after ${timeout}s."
-                docker logs "$container_name"
-                exit 1
-              fi
-              echo "Still waiting on '$container_name'... (${elapsed}s elapsed)"
-              sleep $interval
-              elapsed=$((elapsed + interval))
-            done
-
-            echo "✅ $container_name is healthy!"
-          }
-
-          wait_for_health sqlserver 30
-          wait_for_health mongodb 30
-          wait_for_health rabbitmq 30
-
-      - name: Check API is responding
-        run: |
-          for i in {1..10}; do
-            if curl -s http://localhost:5000/health || curl -s http://localhost:5000; then
-              echo "✅ API is up"
-              exit 0
-            fi
-            echo "⏳ Waiting for API... (${i} attempt)"
-            sleep 3
-          done
-          echo "❌ API did not respond in time"
-          docker logs api
-          exit 1
-
-      - name: Check Blazor Server is responding
-        run: |
-          for i in {1..10}; do
-            if curl -s http://localhost:7000; then
-              echo "✅ Blazor Server is up"
-              exit 0
-            fi
-            echo "⏳ Waiting for Blazor Server... (${i} attempt)"
-            sleep 3
-          done
-          echo "❌ Blazor Server did not respond in time"
-          docker logs blazor-server
-          exit 1
-
-      - name: Tear down containers
-        if: always()
-        run: docker compose down --volumes
+          docker buildx build \
+            --cache-from=type=local,src=/tmp/.buildx-cache \
+            --cache-to=type=local,dest=/tmp/.buildx-cache \
+            -f ${{ matrix.dockerfile }} \
+            -t ${{ matrix.image-name }} \
+            --load .
