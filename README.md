@@ -1,4 +1,4 @@
-﻿[![CI](https://github.com/ParagNaikade/OrderTrackingApp/actions/workflows/ci-compose.yml/badge.svg?branch=develop)](https://github.com/ParagNaikade/OrderTrackingApp/actions/workflows/ci-compose.yml)
+[![Parallel Docker Builds with Cache](https://github.com/ParagNaikade/OrderTrackingApp/actions/workflows/ci-pipeline.yml/badge.svg)](https://github.com/ParagNaikade/OrderTrackingApp/actions/workflows/ci-pipeline.yml)
 
 # 🧱 OrderTrackingApp - Docker Commands
 
