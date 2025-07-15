@@ -5,19 +5,10 @@ services:
     ports:
       - "1433:1433"
     environment:
-      MSSQL_SA_PASSWORD: ${SA_PASSWORD}
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD}
       ACCEPT_EULA: "Y"
     volumes:
       - sql_data:/var/opt/mssql
-    healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          '/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "$${SA_PASSWORD}" -Q "SELECT 1"',
-        ]
-      interval: 10s
-      timeout: 100s
-      retries: 10
 
   mongodb:
     image: mongo
@@ -29,11 +20,6 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
     volumes:
       - mongo_data:/data/db
-    healthcheck:
-      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
 
   rabbitmq:
     image: rabbitmq:4-management
@@ -42,58 +28,10 @@ services:
       - "5672:5672"
       - "15672:15672"
     environment:
-      RABBITMQ_DEFAULT_USER: guest
-      RABBITMQ_DEFAULT_PASS: guest
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
-    healthcheck:
-      test: ["CMD", "rabbitmq-diagnostics", "status"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  api:
-    build:
-      context: .
-      dockerfile: OrderTrackingApp.Api/Dockerfile
-    container_name: api
-    ports:
-      - "5000:8080"
-    depends_on:
-      - sqlserver
-      - rabbitmq
-      - mongodb
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=OrderDb;User=sa;Password=${SA_PASSWORD:-Your_password123};
-      - ConnectionStrings__MongoDb=mongodb://${MONGO_INITDB_ROOT_USERNAME:-admin}:${MONGO_INITDB_ROOT_PASSWORD:-password}@mongodb:27017
-
-  consumer:
-    build:
-      context: .
-      dockerfile: OrderTrackingApp.Consumer/Dockerfile
-    container_name: consumer
-    depends_on:
-      - sqlserver
-      - rabbitmq
-      - mongodb
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=OrderDb;User=sa;Password=${SA_PASSWORD:-Your_password123};
-      - ConnectionStrings__MongoDb=mongodb://${MONGO_INITDB_ROOT_USERNAME:-admin}:${MONGO_INITDB_ROOT_PASSWORD:-password}@mongodb:27017
-
-  blazor-server:
-    build:
-      context: .
-      dockerfile: OrderTrackingApp.Blazor.Server/Dockerfile
-    container_name: blazor-server
-    ports:
-      - "7000:8080"
-    depends_on:
-      - api
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-      - ApiBaseUrl=http://api:8080
 
 volumes:
   sql_data:
