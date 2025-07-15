@@ -1,7 +1,3 @@
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-WORKDIR /app
-EXPOSE 8080
-
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
@@ -23,11 +19,11 @@ RUN dotnet build "OrderTrackingApp.Blazor.Server/OrderTrackingApp.Blazor.Server.
 FROM build AS publish
 RUN dotnet publish "OrderTrackingApp.Blazor.Server/OrderTrackingApp.Blazor.Server.csproj" -c Release -o /app/publish --no-restore
 
-FROM base AS final
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=publish /app/publish .
 
-ENV ASPNETCORE_URLS=http://0.0.0.0:8080
+EXPOSE 8080
 
 # Start the app
 ENTRYPOINT ["dotnet", "OrderTrackingApp.Blazor.Server.dll"]
