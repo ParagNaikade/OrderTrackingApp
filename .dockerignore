@@ -8,7 +8,6 @@
 **/*.db
 **/*.log
 **/node_modules/
-**/wwwroot/
 Dockerfile*
 docker-compose*
 .env
