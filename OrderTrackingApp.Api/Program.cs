@@ -1,7 +1,7 @@
 using OrderTrackingApp.Persistence.Extensions;
 using OrderTrackingApp.ReadPersistence.Extensions;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplicatio.CreateBuilder(args);
 
 // Add services to the container.
 
