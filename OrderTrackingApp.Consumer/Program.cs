@@ -6,7 +6,7 @@ var builder = Host.CreateApplicationBuilder(args);
 builder.Services.AddHostedService<Worker>();
 
 builder.Services.AddPersistenceServices(builder.Configuration);
-builder.Services.AddReadPersistence(builder.Configuration);
+builder.Services.AddReadPersistence();
 
 var host = builder.Build();
 host.Run();

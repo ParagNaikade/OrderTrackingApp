@@ -4,7 +4,7 @@ using OrderTrackingApp.Domain.Entities;
 
 namespace OrderTrackingApp.Persistence.Repositories
 {
-    internal class OrderWriteRepository(AppDbContext dbContext) : IOrderWriteRepository
+    public class OrderWriteRepository(AppDbContext dbContext) : IOrderWriteRepository
     {
         public async Task AddAsync(Order order)
         {
