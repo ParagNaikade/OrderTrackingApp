@@ -9,5 +9,7 @@ namespace OrderTrackingApp.Application.Interfaces
         Task UpdateAsync(Order order);
         
         Task DeleteAsync(Guid id);
+
+        Task<Order?> GetByIdAsync(Guid id);
     }
 }

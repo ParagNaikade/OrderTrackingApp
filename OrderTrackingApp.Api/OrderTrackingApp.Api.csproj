@@ -10,10 +10,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="15.0.1" />
+    <PackageReference Include="FluentValidation" Version="12.0.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OrderTrackingApp.Infrastructure\OrderTrackingApp.Infrastructure.csproj" />
     <ProjectReference Include="..\OrderTrackingApp.Persistence\OrderTrackingApp.Persistence.csproj" />
     <ProjectReference Include="..\OrderTrackingApp.ReadPersistence\OrderTrackingApp.ReadPersistence.csproj" />
   </ItemGroup>

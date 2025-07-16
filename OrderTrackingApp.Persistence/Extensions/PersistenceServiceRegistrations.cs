@@ -11,7 +11,7 @@ namespace OrderTrackingApp.Persistence.Extensions
         public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration config)
         {
             services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(config.GetConnectionString("SqlConnection")));
 
             services.AddScoped<IOrderWriteRepository, OrderWriteRepository>();
 

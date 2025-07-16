@@ -1,26 +1,26 @@
 ﻿using MongoDB.Driver;
-using OrderTrackingApp.Application.DTOs;
 using OrderTrackingApp.ReadPersistence.Interfaces;
+using OrderTrackingApp.ReadPersistence.Models;
 
 namespace OrderTrackingApp.ReadPersistence.Repositories
 {
-    internal class OrderReadRepository : IOrderReadRepository
+    public class OrderReadRepository(MongoDbContext context) : IOrderReadRepository
     {
-        private readonly IMongoCollection<OrderDto> _collection;
+        private readonly IMongoCollection<OrderReadModel> _collection = context.Database.GetCollection<OrderReadModel>("Orders");
 
-        public OrderReadRepository(MongoDbContext context)
-        {
-            _collection = context.Database.GetCollection<OrderDto>("Orders");
-        }
-
-        public async Task<List<OrderDto>> GetAllAsync()
+        public async Task<List<OrderReadModel>> GetAllAsync()
         {
             return await _collection.Find(_ => true).ToListAsync();
         }
 
-        public async Task<OrderDto?> GetByIdAsync(Guid id)
+        public async Task<OrderReadModel?> GetByIdAsync(Guid id)
         {
             return await _collection.Find(o => o.Id == id).FirstOrDefaultAsync();
+        }
+
+        public async Task InsertAsync(OrderReadModel order)
+        {
+            await _collection.InsertOneAsync(order);
         }
     }
 }

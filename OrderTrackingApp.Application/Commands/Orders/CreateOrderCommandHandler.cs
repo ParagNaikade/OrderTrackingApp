@@ -1,36 +1,59 @@
 ﻿using MediatR;
-using OrderTrackingApp.Application.DTOs;
 using OrderTrackingApp.Application.Interfaces;
 using OrderTrackingApp.Domain.Entities;
+using OrderTrackingApp.Domain.Events;
+using OrderTrackingApp.Domain.Interfaces;
 
 namespace OrderTrackingApp.Application.Commands.Orders
 {
-    public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, OrderDto>
+    public class CreateOrderCommandHandler(IOrderWriteRepository orderRepository, IProductRepository productRepository, IMediator mediator) 
+        : IRequestHandler<CreateOrderCommand, Guid>
     {
-        private readonly IOrderWriteRepository _orderRepository;
-
-        public CreateOrderCommandHandler(IOrderWriteRepository orderRepository)
+        public async Task<Guid> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
-            _orderRepository = orderRepository;
-        }
+            var orderItems = new List<OrderItem>();
+            var updatedProducts = new List<Product>();
 
-        public async Task<OrderDto> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
-        {
+            var productIds = request.Items.Select(item => item.ProductId).ToList();
+            var products = await productRepository.GetByIdsAsync(productIds);
+            var productDict = products.ToDictionary(p => p.Id, p => p);
+
+            foreach (var item in request.Items)
+            {
+                if (!productDict.TryGetValue(item.ProductId, out Product? product))
+                {
+                    throw new KeyNotFoundException($"Product with ID {item.ProductId} not found.");
+                }
+
+                if(product.StockQuantity < item.Quantity)
+                {
+                    throw new InvalidOperationException($"Insufficient stock for product {product.Name}. Available: {product.StockQuantity}, Requested: {item.Quantity}.");
+                }
+
+                orderItems.Add(new OrderItem { ProductId = item.ProductId, Quantity = item.Quantity, UnitPrice = product.Price });
+
+                product.StockQuantity -= item.Quantity;
+
+                updatedProducts.Add(product);
+            }
+
+            await productRepository.UpdateProducts(updatedProducts);
+
             var order = new Order
             {
-                CustomerName = request.CustomerName,
+                Id = Guid.NewGuid(),
+                OrderNumber = $"ORD-{DateTime.UtcNow.Ticks}",
+                CustomerId = request.CustomerId,
+                OrderDate = DateTime.UtcNow,
                 Status = OrderStatus.Pending,
+                Items = orderItems
             };
 
-            await _orderRepository.AddAsync(order);
+            await orderRepository.AddAsync(order);
 
-            return new OrderDto
-            {
-                Id = order.Id,
-                CustomerName = order.CustomerName,
-                Status = order.Status,
-                CreatedAt = order.CreatedAt
-            };
+            await mediator.Publish(new OrderCreatedEvent(order.Id), cancellationToken);
+
+            return order.Id;
         }
     }
 }

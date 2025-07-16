@@ -1,4 +1,3 @@
-using OrderTrackingApp.Blazor.Client.Pages;
 using OrderTrackingApp.Blazor.Server.Components;
 
 var builder = WebApplication.CreateBuilder(args);
