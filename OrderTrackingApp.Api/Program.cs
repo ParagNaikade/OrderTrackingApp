@@ -32,8 +32,8 @@ builder.Services.AddValidatorsFromAssemblyContaining<CreateOrderRequestValidator
 builder.Services.AddAutoMapper(config => { }, typeof(OrderMappingProfile).Assembly);
 
 builder.Services.AddPersistenceServices(builder.Configuration);
-builder.Services.AddReadPersistence(builder.Configuration);
-builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddReadPersistence();
+builder.Services.AddInfrastructureServices();
 
 var app = builder.Build();
 

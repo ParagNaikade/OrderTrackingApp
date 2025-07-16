@@ -6,7 +6,7 @@ namespace OrderTrackingApp.Infrastructure.Extensions
 {
     public static class InfrastructureServiceRegistrations
     {
-        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration config)
+        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
         {
             services.AddSingleton<IMessagePublisher, RabbitMqPublisher>();
             return services;

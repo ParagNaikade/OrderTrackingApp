@@ -14,8 +14,8 @@ namespace OrderTrackingApp.Consumer
         private readonly ILogger<Worker> _logger;
         private readonly IOrderWriteRepository _orderWriteRepository;
         private readonly IOrderReadRepository _orderReadRepository;
-        private IConnection _connection;
-        private IChannel _channel;
+        private IConnection? _connection;
+        private IChannel? _channel;
 
         public Worker(ILogger<Worker> logger, IOrderWriteRepository orderWriteRepository, IOrderReadRepository orderReadRepository)
         {
@@ -28,13 +28,13 @@ namespace OrderTrackingApp.Consumer
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var consumer = new AsyncEventingBasicConsumer(_channel);
+            var consumer = new AsyncEventingBasicConsumer(_channel!);
             consumer.ReceivedAsync += async (model, ea) =>
             {
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
 
-                _logger.LogInformation($"Received message: {message}");
+                _logger.LogInformation("Received message: {message}", message);
 
                 var orderEvent = JsonSerializer.Deserialize<OrderCreatedEvent>(message);
 
@@ -58,13 +58,14 @@ namespace OrderTrackingApp.Consumer
 
                     await _orderReadRepository.InsertAsync(readModel);
 
-                    _logger.LogInformation($"Synced OrderId {order.Id} to MongoDB");
+                    _logger.LogInformation("Synced OrderId {orderId} to MongoDB", order.Id);
                 }
             };
 
-            await _channel.BasicConsumeAsync(queue: "orders",
+            await _channel!.BasicConsumeAsync(queue: "orders",
                                     autoAck: true,
-                                    consumer: consumer);
+                                    consumer: consumer,
+                                    stoppingToken);
         }
 
         private async Task InitializeRabbitMqListener()
