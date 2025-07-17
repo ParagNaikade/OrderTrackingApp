@@ -26,9 +26,11 @@ namespace OrderTrackingApp.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        public Task UpdateProducts(List<Product> updatedProducts)
+        public async Task UpdateProducts(List<Product> updatedProducts)
         {
-            throw new NotImplementedException();
+            appDbContext.Products.UpdateRange(updatedProducts);
+
+            await appDbContext.SaveChangesAsync();
         }
     }
 }
