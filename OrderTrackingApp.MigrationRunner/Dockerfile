@@ -12,14 +12,14 @@ COPY nscacert.crt /usr/local/share/ca-certificates/nscacert.crt
 # Update the certificate store
 RUN update-ca-certificates
 
-RUN dotnet restore "./OrderTrackingApp.MigrationRunner/OrderTrackingApp.MigrationRunner.csproj"
+RUN dotnet restore "OrderTrackingApp.MigrationRunner/OrderTrackingApp.MigrationRunner.csproj"
 
 COPY . .
 
-RUN dotnet build "./OrderTrackingApp.MigrationRunner.csproj" -c Release -o /app/build --no-restore
+RUN dotnet build "OrderTrackingApp.MigrationRunner.csproj" -c Release -o /app/build --no-restore
 
 FROM build AS publish
-RUN dotnet publish "./OrderTrackingApp.MigrationRunner.csproj" -c Release -o /app/publish /p:UseAppHost=false --no-restore
+RUN dotnet publish "OrderTrackingApp.MigrationRunner.csproj" -c Release -o /app/publish /p:UseAppHost=false --no-restore
 
 FROM base AS final
 WORKDIR /app
