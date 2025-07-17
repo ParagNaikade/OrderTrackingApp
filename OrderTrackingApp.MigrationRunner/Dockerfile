@@ -5,6 +5,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 COPY ["OrderTrackingApp.MigrationRunner/OrderTrackingApp.MigrationRunner.csproj", "OrderTrackingApp.MigrationRunner/"]
+COPY ["OrderTrackingApp.Persistence/OrderTrackingApp.Persistence.csproj", "OrderTrackingApp.Persistence/"]
 
 # Copy your root certificate into the container
 COPY nscacert.crt /usr/local/share/ca-certificates/nscacert.crt
