@@ -16,10 +16,10 @@ RUN dotnet restore "OrderTrackingApp.MigrationRunner/OrderTrackingApp.MigrationR
 
 COPY . .
 
-RUN dotnet build "OrderTrackingApp.MigrationRunner.csproj" -c Release -o /app/build --no-restore
+RUN dotnet build "OrderTrackingApp.MigrationRunner/OrderTrackingApp.MigrationRunner.csproj" -c Release -o /app/build --no-restore
 
 FROM build AS publish
-RUN dotnet publish "OrderTrackingApp.MigrationRunner.csproj" -c Release -o /app/publish /p:UseAppHost=false --no-restore
+RUN dotnet publish "OrderTrackingApp.MigrationRunner/OrderTrackingApp.MigrationRunner.csproj" -c Release -o /app/publish /p:UseAppHost=false --no-restore
 
 FROM base AS final
 WORKDIR /app
