@@ -1,10 +1,18 @@
 ﻿using MediatR;
-using OrderTrackingApp.Application.DTOs;
 
 namespace OrderTrackingApp.Application.Commands.Orders
 {
-    public class CreateOrderCommand : IRequest<OrderDto>
+    public class CreateOrderCommand : IRequest<Guid>
     {
-        public string CustomerName { get; set; } = string.Empty;
+        public Guid CustomerId { get; set; }
+
+        public List<CreateOrderItemDto> Items { get; set; } = [];
+    }
+
+    public class CreateOrderItemDto
+    {
+        public Guid ProductId { get; set; }
+
+        public int Quantity { get; set; }
     }
 }

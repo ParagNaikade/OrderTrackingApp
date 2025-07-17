@@ -30,6 +30,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.Blazor.Ser
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.Blazor.Client", "OrderTrackingApp.Blazor.Client\OrderTrackingApp.Blazor.Client.csproj", "{43A85AAD-5188-4103-BEF6-F88971B638F2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.Persistence.Tests", "OrderTrackingApp.Persistence.Tests\OrderTrackingApp.Persistence.Tests.csproj", "{77A97D9B-3156-47EE-91A1-8D6F0D9BABE3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.MigrationRunner", "OrderTrackingApp.MigrationRunner\OrderTrackingApp.MigrationRunner.csproj", "{C9DE7296-2132-490F-97DE-96FF65C7A5BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,6 +76,14 @@ Global
 		{43A85AAD-5188-4103-BEF6-F88971B638F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43A85AAD-5188-4103-BEF6-F88971B638F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43A85AAD-5188-4103-BEF6-F88971B638F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77A97D9B-3156-47EE-91A1-8D6F0D9BABE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77A97D9B-3156-47EE-91A1-8D6F0D9BABE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77A97D9B-3156-47EE-91A1-8D6F0D9BABE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77A97D9B-3156-47EE-91A1-8D6F0D9BABE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9DE7296-2132-490F-97DE-96FF65C7A5BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9DE7296-2132-490F-97DE-96FF65C7A5BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9DE7296-2132-490F-97DE-96FF65C7A5BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9DE7296-2132-490F-97DE-96FF65C7A5BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,6 +98,8 @@ Global
 		{773AD28D-63B8-4A78-90D0-A5282F3BAFDD} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{1FD0A91F-99A3-4D45-AA2B-3081183FEAC3} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{43A85AAD-5188-4103-BEF6-F88971B638F2} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{77A97D9B-3156-47EE-91A1-8D6F0D9BABE3} = {D901624D-8396-4393-B3AE-7D8405C89D69}
+		{C9DE7296-2132-490F-97DE-96FF65C7A5BB} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ECFA56EC-C322-4A64-8936-E930A2EEBE28}

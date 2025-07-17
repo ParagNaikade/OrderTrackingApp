@@ -3,7 +3,7 @@ using MongoDB.Driver;
 
 namespace OrderTrackingApp.ReadPersistence
 {
-    internal class MongoDbContext
+    public class MongoDbContext
     {
         public IMongoDatabase Database { get; }
 

@@ -4,6 +4,7 @@
     "OrderTrackingApp.Consumer": {
       "commandName": "Project",
       "dotnetRunMessages": true,
+      "hotReloadEnabled": false,
       "environmentVariables": {
         "DOTNET_ENVIRONMENT": "Development"
       }

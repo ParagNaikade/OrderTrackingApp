@@ -20,6 +20,8 @@ jobs:
             image-name: ordertrackingapp-consumer
           - dockerfile: OrderTrackingApp.Blazor.Server/Dockerfile
             image-name: ordertrackingapp-blazor-server
+          - dockerfile: OrderTrackingApp.MigrationRunner/Dockerfile
+            image-name: ordertrackingapp-migration-runner
 
     steps:
       - name: Checkout code

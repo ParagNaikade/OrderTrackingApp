@@ -1,11 +1,13 @@
-﻿using OrderTrackingApp.Application.DTOs;
+﻿using OrderTrackingApp.ReadPersistence.Models;
 
 namespace OrderTrackingApp.ReadPersistence.Interfaces
 {
     public interface IOrderReadRepository
     {
-        Task<OrderDto?> GetByIdAsync(Guid id);
+        Task<OrderReadModel?> GetByIdAsync(Guid id);
 
-        Task<List<OrderDto>> GetAllAsync();
+        Task<List<OrderReadModel>> GetAllAsync();
+
+        Task InsertAsync(OrderReadModel order);
     }
 }

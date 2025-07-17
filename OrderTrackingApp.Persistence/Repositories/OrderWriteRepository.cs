@@ -4,7 +4,7 @@ using OrderTrackingApp.Domain.Entities;
 
 namespace OrderTrackingApp.Persistence.Repositories
 {
-    internal class OrderWriteRepository(AppDbContext dbContext) : IOrderWriteRepository
+    public class OrderWriteRepository(AppDbContext dbContext) : IOrderWriteRepository
     {
         public async Task AddAsync(Order order)
         {
@@ -27,6 +27,11 @@ namespace OrderTrackingApp.Persistence.Repositories
         {
             dbContext.Orders.Update(order);
             await dbContext.SaveChangesAsync();
+        }
+
+        public async Task<Order?> GetByIdAsync(Guid id)
+        {
+            return await dbContext.Orders.FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }

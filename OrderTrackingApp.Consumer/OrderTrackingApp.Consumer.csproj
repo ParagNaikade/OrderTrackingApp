@@ -9,5 +9,11 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
+    <PackageReference Include="RabbitMQ.Client" Version="7.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OrderTrackingApp.Persistence\OrderTrackingApp.Persistence.csproj" />
+    <ProjectReference Include="..\OrderTrackingApp.ReadPersistence\OrderTrackingApp.ReadPersistence.csproj" />
   </ItemGroup>
 </Project>
