@@ -7,7 +7,7 @@ WORKDIR /src
 COPY ["OrderTrackingApp.MigrationRunner/OrderTrackingApp.MigrationRunner.csproj", "OrderTrackingApp.MigrationRunner/"]
 COPY ["OrderTrackingApp.Persistence/OrderTrackingApp.Persistence.csproj", "OrderTrackingApp.Persistence/"]
 COPY ["OrderTrackingApp.Application/OrderTrackingApp.Application.csproj", "OrderTrackingApp.Application/"]
-COPY ["OrderTrackingApp.Application/OrderTrackingApp.Application.Contracts.csproj", "OrderTrackingApp.Application.Contracts/"]
+COPY ["OrderTrackingApp.Application.Contracts/OrderTrackingApp.Application.Contracts.csproj", "OrderTrackingApp.Application.Contracts/"]
 COPY ["OrderTrackingApp.Domain/OrderTrackingApp.Domain.csproj", "OrderTrackingApp.Domain/"]
 
 # Copy your root certificate into the container
