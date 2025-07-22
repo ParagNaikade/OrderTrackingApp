@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using OrderTrackingApp.ReadPersistence.Interfaces;
+using OrderTrackingApp.Application.Contracts.Orders;
 using OrderTrackingApp.ReadPersistence.Repositories;
 
 namespace OrderTrackingApp.ReadPersistence.Extensions
@@ -10,6 +10,8 @@ namespace OrderTrackingApp.ReadPersistence.Extensions
         {
             services.AddSingleton<MongoDbContext>();
             services.AddScoped<IOrderReadRepository, OrderReadRepository>();
+
+            services.AddAutoMapper(config => { }, typeof(MappingProfiles.OrderProfile).Assembly);
             return services;
         }
     }

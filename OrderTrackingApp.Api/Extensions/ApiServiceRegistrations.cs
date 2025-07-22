@@ -26,7 +26,7 @@ namespace OrderTrackingApp.Api.Extensions
                         });
 
             services.AddValidatorsFromAssemblyContaining<CreateOrderRequestValidator>();
-            services.AddAutoMapper(config => { }, typeof(OrderMappingProfile).Assembly);
+            services.AddAutoMapper(config => { }, typeof(OrderProfile).Assembly);
 
             return services;
         }

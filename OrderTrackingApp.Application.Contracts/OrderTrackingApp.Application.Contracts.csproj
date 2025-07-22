@@ -7,12 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="15.0.1" />
-    <PackageReference Include="MediatR" Version="13.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\OrderTrackingApp.Application.Contracts\OrderTrackingApp.Application.Contracts.csproj" />
     <ProjectReference Include="..\OrderTrackingApp.Domain\OrderTrackingApp.Domain.csproj" />
   </ItemGroup>
 

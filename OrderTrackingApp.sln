@@ -34,6 +34,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.Persistenc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.MigrationRunner", "OrderTrackingApp.MigrationRunner\OrderTrackingApp.MigrationRunner.csproj", "{C9DE7296-2132-490F-97DE-96FF65C7A5BB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingApp.Application.Contracts", "OrderTrackingApp.Application.Contracts\OrderTrackingApp.Application.Contracts.csproj", "{E9BB177D-D125-4D7F-A599-126DADEDCDD1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -84,6 +86,10 @@ Global
 		{C9DE7296-2132-490F-97DE-96FF65C7A5BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9DE7296-2132-490F-97DE-96FF65C7A5BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9DE7296-2132-490F-97DE-96FF65C7A5BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9BB177D-D125-4D7F-A599-126DADEDCDD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9BB177D-D125-4D7F-A599-126DADEDCDD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9BB177D-D125-4D7F-A599-126DADEDCDD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9BB177D-D125-4D7F-A599-126DADEDCDD1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -100,6 +106,7 @@ Global
 		{43A85AAD-5188-4103-BEF6-F88971B638F2} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{77A97D9B-3156-47EE-91A1-8D6F0D9BABE3} = {D901624D-8396-4393-B3AE-7D8405C89D69}
 		{C9DE7296-2132-490F-97DE-96FF65C7A5BB} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{E9BB177D-D125-4D7F-A599-126DADEDCDD1} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ECFA56EC-C322-4A64-8936-E930A2EEBE28}

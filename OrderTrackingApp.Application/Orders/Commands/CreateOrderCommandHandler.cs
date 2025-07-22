@@ -1,17 +1,17 @@
 ﻿using MediatR;
-using OrderTrackingApp.Application.Interfaces;
+using OrderTrackingApp.Application.Contracts.Orders;
 using OrderTrackingApp.Domain.Entities;
 using OrderTrackingApp.Domain.Events;
 using OrderTrackingApp.Domain.Interfaces;
 
-namespace OrderTrackingApp.Application.Commands.Orders
+namespace OrderTrackingApp.Application.Orders.Commands
 {
-    public class CreateOrderCommandHandler(IOrderWriteRepository orderRepository, IProductRepository productRepository, IMediator mediator) 
+    public class CreateOrderCommandHandler(IOrderWriteRepository orderRepository, IProductRepository productRepository, IMediator mediator)
         : IRequestHandler<CreateOrderCommand, Guid>
     {
         public async Task<Guid> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
-            var orderItems = new List<OrderItem>();
+            var orderItems = new List<OrderItemDto>();
             var updatedProducts = new List<Product>();
 
             var productIds = request.Items.Select(item => item.ProductId).ToList();
@@ -30,7 +30,7 @@ namespace OrderTrackingApp.Application.Commands.Orders
                     throw new InvalidOperationException($"Insufficient stock for product {product.Name}. Available: {product.StockQuantity}, Requested: {item.Quantity}.");
                 }
 
-                orderItems.Add(new OrderItem { ProductId = item.ProductId, Quantity = item.Quantity, UnitPrice = product.Price });
+                orderItems.Add(new OrderItemDto { ProductId = item.ProductId, Quantity = item.Quantity, UnitPrice = product.Price });
 
                 product.StockQuantity -= item.Quantity;
 
@@ -39,12 +39,12 @@ namespace OrderTrackingApp.Application.Commands.Orders
 
             await productRepository.UpdateProducts(updatedProducts);
 
-            var order = new Order
+            var order = new OrderDto
             {
                 Id = Guid.NewGuid(),
                 OrderNumber = $"ORD-{DateTime.UtcNow.Ticks}",
                 CustomerId = request.CustomerId,
-                OrderDate = DateTime.UtcNow,
+                CreatedAt = DateTime.UtcNow,
                 Status = OrderStatus.Pending,
                 Items = orderItems
             };

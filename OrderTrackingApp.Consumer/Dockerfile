@@ -5,6 +5,7 @@ WORKDIR /src
 
 COPY ["OrderTrackingApp.Consumer/OrderTrackingApp.Consumer.csproj", "OrderTrackingApp.Consumer/"]
 COPY ["OrderTrackingApp.Application/OrderTrackingApp.Application.csproj", "OrderTrackingApp.Application/"]
+COPY ["OrderTrackingApp.Application.Contracts/OrderTrackingApp.Application.Contracts.csproj", "OrderTrackingApp.Application.Contracts/"]
 COPY ["OrderTrackingApp.Domain/OrderTrackingApp.Domain.csproj", "OrderTrackingApp.Domain/"]
 COPY ["OrderTrackingApp.Infrastructure/OrderTrackingApp.Infrastructure.csproj", "OrderTrackingApp.Infrastructure/"]
 COPY ["OrderTrackingApp.Persistence/OrderTrackingApp.Persistence.csproj", "OrderTrackingApp.Persistence/"]
