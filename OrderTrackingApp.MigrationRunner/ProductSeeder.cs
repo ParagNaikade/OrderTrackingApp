@@ -22,7 +22,7 @@ namespace OrderTrackingApp.MigrationRunner
                     Sku = "MSE-001",
                     Description = "Ergonomic wireless mouse",
                     Price = 29.99m,
-                    StockQuantity = 100
+                    StockQuantity = 1000
                 },
                 new()
                 {
@@ -31,7 +31,7 @@ namespace OrderTrackingApp.MigrationRunner
                     Sku = "KEY-101",
                     Description = "RGB mechanical keyboard",
                     Price = 79.99m,
-                    StockQuantity = 50
+                    StockQuantity = 500
                 }
             };
 

@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OrderTrackingApp.Application\OrderTrackingApp.Application.csproj" />
     <ProjectReference Include="..\OrderTrackingApp.Persistence\OrderTrackingApp.Persistence.csproj" />
     <ProjectReference Include="..\OrderTrackingApp.ReadPersistence\OrderTrackingApp.ReadPersistence.csproj" />
   </ItemGroup>

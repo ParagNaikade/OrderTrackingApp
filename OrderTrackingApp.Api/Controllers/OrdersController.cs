@@ -25,11 +25,20 @@ namespace OrderTrackingApp.Api.Controllers
             return CreatedAtAction(nameof(CreateOrder), new { id = orderId }, new { OrderId = orderId });
         }
 
-        [HttpGet("{id:guid}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetOrderById(Guid id)
         {
             var order = await mediator.Send(new GetOrderByIdQuery(id));
             return Ok(order);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetOrders([FromQuery] GetOrdersRequest request)
+        {
+            var query = mapper.Map<GetOrdersQuery>(request);
+
+            var orders = await mediator.Send(query);
+            return Ok(orders);
         }
     }
 }
