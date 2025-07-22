@@ -3,7 +3,8 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using OrderTrackingApp.Api.Examples;
 using OrderTrackingApp.Api.Models;
-using OrderTrackingApp.Application.Commands.Orders;
+using OrderTrackingApp.Application.Orders.Commands;
+using OrderTrackingApp.Application.Orders.Queries;
 using Swashbuckle.AspNetCore.Filters;
 
 namespace OrderTrackingApp.Api.Controllers
@@ -22,6 +23,13 @@ namespace OrderTrackingApp.Api.Controllers
             var orderId = await mediator.Send(command);
 
             return CreatedAtAction(nameof(CreateOrder), new { id = orderId }, new { OrderId = orderId });
+        }
+
+        [HttpGet("{id:guid}")]
+        public async Task<IActionResult> GetOrderById(Guid id)
+        {
+            var order = await mediator.Send(new GetOrderByIdQuery(id));
+            return Ok(order);
         }
     }
 }

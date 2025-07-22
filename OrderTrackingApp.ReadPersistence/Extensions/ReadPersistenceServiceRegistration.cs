@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using OrderTrackingApp.ReadPersistence.Interfaces;
+using OrderTrackingApp.Application.Contracts.Orders;
 using OrderTrackingApp.ReadPersistence.Repositories;
 
 namespace OrderTrackingApp.ReadPersistence.Extensions

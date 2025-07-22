@@ -1,13 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
-using OrderTrackingApp.Application.Interfaces;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using OrderTrackingApp.Application.Contracts.Orders;
 using OrderTrackingApp.Domain.Entities;
 
 namespace OrderTrackingApp.Persistence.Repositories
 {
-    public class OrderWriteRepository(AppDbContext dbContext) : IOrderWriteRepository
+    public class OrderWriteRepository(AppDbContext dbContext, IMapper mapper) : IOrderWriteRepository
     {
-        public async Task AddAsync(Order order)
+        public async Task AddAsync(OrderDto orderDto)
         {
+            var order = mapper.Map<Order>(orderDto);
+
             dbContext.Orders.Add(order);
             await dbContext.SaveChangesAsync();
         }
@@ -23,15 +26,21 @@ namespace OrderTrackingApp.Persistence.Repositories
             }
         }
 
-        public async Task UpdateAsync(Order order)
+        public async Task UpdateAsync(OrderDto orderDto)
         {
+            var order = mapper.Map<Order>(orderDto);
+
             dbContext.Orders.Update(order);
             await dbContext.SaveChangesAsync();
         }
 
-        public async Task<Order?> GetByIdAsync(Guid id)
+        public async Task<OrderDto?> GetByIdAsync(Guid id)
         {
-            return await dbContext.Orders.FirstOrDefaultAsync(x => x.Id == id);
+            var order = await dbContext.Orders
+                .Include(o => o.Items)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            return mapper.Map<OrderDto?>(order);
         }
     }
 }

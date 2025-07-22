@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using OrderTrackingApp.Api.Models;
-using OrderTrackingApp.Application.Commands.Orders;
+using OrderTrackingApp.Application.Orders.Commands;
 
 namespace OrderTrackingApp.Api.MappingProfiles
 {
-    public class OrderMappingProfile : Profile
+    public class OrderProfile : Profile
     {
-        public OrderMappingProfile()
+        public OrderProfile()
         {
             CreateMap<CreateOrderRequest, CreateOrderCommand>();
             CreateMap<CreateOrderItemRequest, CreateOrderItemDto>();

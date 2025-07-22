@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OrderTrackingApp.Application.Contracts\OrderTrackingApp.Application.Contracts.csproj" />
     <ProjectReference Include="..\OrderTrackingApp.Application\OrderTrackingApp.Application.csproj" />
   </ItemGroup>
 

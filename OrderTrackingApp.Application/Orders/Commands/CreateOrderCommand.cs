@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace OrderTrackingApp.Application.Commands.Orders
+namespace OrderTrackingApp.Application.Orders.Commands
 {
     public class CreateOrderCommand : IRequest<Guid>
     {

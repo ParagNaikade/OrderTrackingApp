@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OrderTrackingApp.Application.Interfaces;
+using OrderTrackingApp.Application.Contracts.Orders;
 using OrderTrackingApp.Domain.Interfaces;
 using OrderTrackingApp.Persistence.Repositories;
 
