@@ -1,45 +1,112 @@
 [![Parallel Docker Builds with Cache](https://github.com/ParagNaikade/OrderTrackingApp/actions/workflows/ci-pipeline.yml/badge.svg)](https://github.com/ParagNaikade/OrderTrackingApp/actions/workflows/ci-pipeline.yml)
 
-# 🧱 OrderTrackingApp - Docker Commands
+# 🧾 Order Tracking System
 
-This section lists the Docker build and run commands for each project in the solution.
+A distributed order processing system built with **.NET Clean Architecture**, featuring **CQRS**, **RabbitMQ messaging**, and dual persistence in **SQL Server** and **MongoDB**.  
+
+This project demonstrates a scalable microservice pattern using domain events and message queues to decouple the system.
 
 ---
 
-## 🐳 Docker Commands for Local Development
+## 📐 Architecture Overview
 
-### 📦 `OrderTrackingApp.Api`
-
-```bash
-# Build
-docker build -f OrderTrackingApp.Api/Dockerfile -t ordertrackingapp-api .
-
-# Run
- docker run -it --rm -v "$(Get-Location):/app" -w /app/OrderTrackingApp.Api -p 5000:8080 mcr.microsoft.com/dotnet/sdk:8.0 dotnet watch run --urls=http://0.0.0.0:8080
-
-# Run within corporate network where internet is not available and need to use company certificates
-docker run -it --rm -v "$(Get-Location):/app" -v "$(Get-Location)/nscacert.crt:/usr/local/share/ca-certificates/nscacert.crt:ro" -w /app/OrderTrackingApp.Api -p 5000:8080 mcr.microsoft.com/dotnet/sdk:8.0 bash -c "update-ca-certificates && dotnet watch run --urls=http://0.0.0.0:8080"
+```
+API ──> Application ──> Infra ──> RabbitMQ ──> Consumer
+                           │                     │
+                      SQL Server            MongoDB
 ```
 
-### 📦 `OrderTrackingApp.Consumer`
+### 🔄 Flow Description
 
-```bash
-# Build
-docker build -f OrderTrackingApp.Consumer/Dockerfile -t ordertrackingapp-consumer .
+1. **API**
+   - Exposes endpoints to create and retrieve orders.
+   - Triggers a `SaveOrderCommand` when a POST request is received.
 
-# Run
- docker run -it --rm -v "$(Get-Location):/app" -w /app/OrderTrackingApp.Consumer mcr.microsoft.com/dotnet/sdk:8.0 dotnet watch run
+2. **Application**
+   - Implements **CQRS** to separate command and query logic.
+   - Handles business rules (e.g., inventory validation).
+   - Saves the order to **SQL Server**.
+   - Raises an `OrderCreatedEvent` as a domain event.
 
-# Run within corporate network where internet is not available and need to use company certificates
- docker run -it --rm -v "$(Get-Location):/app" -v "$(Get-Location)/nscacert.crt:/usr/local/share/ca-certificates/nscacert.crt:ro" -w /app/OrderTrackingApp.Consumer mcr.microsoft.com/dotnet/sdk:8.0 bash -c "update-ca-certificates && dotnet watch run"
+3. **Infra**
+   - Listens for domain events.
+   - Publishes messages to **RabbitMQ** queue (`order.created`).
+
+4. **Consumer**
+   - Subscribes to the RabbitMQ queue.
+   - Reads order details from SQL.
+   - Syncs the order into **MongoDB** for read-side optimization or analytics.
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer        | Technology                     |
+|--------------|--------------------------------|
+| API          | ASP.NET Core Web API           |
+| Application  | MediatR, CQRS, FluentValidation|
+| Infra        | Entity Framework Core, RabbitMQ|
+| Consumer     | Background Worker, MongoDB     |
+| Messaging    | RabbitMQ                       |
+| Databases    | SQL Server, MongoDB            |
+| Architecture | Clean Architecture             |
+| DevOps       | Docker, GitHub Actions (CI/CD) |
+
+---
+
+## 📂 Project Structure
+
+```
+OrderTrackingApp/
+├── API                     # Entry point
+├── Application             # CQRS, Commands/Queries, COre app logic
+├── Application.Contracts   # Interfaces, DTOs, Validation
+├── Domain                  # Entities, Value Objects, Events
+├── Infrastructure          # Event Handlers, RabbitMQ
+├── Consumer                # Background service that syncs to MongoDB
+├── ReadPersistence         # MongoDB Read Models
+├── Persistence             # EF Core
+└── docker-compose.yml      # Services for RabbitMQ, SQL Server, MongoDB
 ```
 
-### 📦 `OrderTrackingApp.Blazor.Server`
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- [.NET 8 SDK](https://dotnet.microsoft.com/)
+- [Docker](https://www.docker.com/)
+- [MongoDB Compass](https://www.mongodb.com/products/compass) (optional for viewing MongoDB)
+- [RabbitMQ Management UI](http://localhost:15672) (user: `guest`, password: `guest`)
+
+### Run Locally
 
 ```bash
-# Build
-docker build -f OrderTrackingApp.Blazor.Server/Dockerfile -t ordertrackingapp-blazor-server .
-
-# Run
- docker run -it --rm -v "$(Get-Location):/app" -w /app/OrderTrackingApp.Blazor.Server mcr.microsoft.com/dotnet/sdk:8.0 dotnet watch run
+git clone https://github.com/ParagNaikade/order-tracking-app.git
+cd order-tracking-app
+docker-compose up --build
 ```
+
+### Test API
+
+- `POST /api/orders` → Creates an order
+- `GET /api/orders/{id}` → Retrieves an order
+- `GET /api/orders` → Retrieves paginated list
+
+---
+
+## 🧪 Features
+
+- ✅ Clean Architecture (Separation of Concerns)
+- ✅ CQRS with MediatR
+- ✅ Domain Events and Messaging
+- ✅ Async Communication via RabbitMQ
+- ✅ SQL Write DB & MongoDB Read DB (eventual consistency)
+- ✅ Dockerized Microservices
+
+---
+
+## 📬 Contact
+
+Created with ❤️ by [Parag Naikade](https://paragnaikade.com/)
