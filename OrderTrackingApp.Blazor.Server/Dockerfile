@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
 COPY ["OrderTrackingApp.Blazor.Server/OrderTrackingApp.Blazor.Server.csproj", "OrderTrackingApp.Blazor.Server/"]
@@ -19,7 +19,7 @@ RUN dotnet build "OrderTrackingApp.Blazor.Server/OrderTrackingApp.Blazor.Server.
 FROM build AS publish
 RUN dotnet publish "OrderTrackingApp.Blazor.Server/OrderTrackingApp.Blazor.Server.csproj" -c Release -o /app/publish --no-restore
 
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+FROM mcr.microsoft.com/dotnet/aspnet:10.0
 WORKDIR /app
 COPY --from=publish /app/publish .
 
