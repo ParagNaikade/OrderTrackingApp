@@ -4,6 +4,9 @@ WORKDIR /src
 COPY ["OrderTrackingApp.Blazor.Server/OrderTrackingApp.Blazor.Server.csproj", "OrderTrackingApp.Blazor.Server/"]
 COPY ["OrderTrackingApp.Blazor.Client/OrderTrackingApp.Blazor.Client.csproj", "OrderTrackingApp.Blazor.Client/"]
 
+# Copy root package props first
+COPY ["Directory.Packages.props", "."]
+
 # Copy your root certificate into the container
 COPY nscacert.crt /usr/local/share/ca-certificates/nscacert.crt
 

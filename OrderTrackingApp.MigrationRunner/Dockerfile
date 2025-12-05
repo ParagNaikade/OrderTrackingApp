@@ -4,6 +4,9 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
+# Copy root package props first
+COPY ["Directory.Packages.props", "."]
+
 COPY ["OrderTrackingApp.MigrationRunner/OrderTrackingApp.MigrationRunner.csproj", "OrderTrackingApp.MigrationRunner/"]
 COPY ["OrderTrackingApp.Persistence/OrderTrackingApp.Persistence.csproj", "OrderTrackingApp.Persistence/"]
 COPY ["OrderTrackingApp.Application/OrderTrackingApp.Application.csproj", "OrderTrackingApp.Application/"]

@@ -5,6 +5,9 @@ EXPOSE 8080
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
+# Copy root package props first
+COPY ["Directory.Packages.props", "."]
+
 COPY ["OrderTrackingApp.Api/OrderTrackingApp.Api.csproj", "OrderTrackingApp.Api/"]
 COPY ["OrderTrackingApp.Application/OrderTrackingApp.Application.csproj", "OrderTrackingApp.Application/"]
 COPY ["OrderTrackingApp.Application.Contracts/OrderTrackingApp.Application.Contracts.csproj", "OrderTrackingApp.Application.Contracts/"]
