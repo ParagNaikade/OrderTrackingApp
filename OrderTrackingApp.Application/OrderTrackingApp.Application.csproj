@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" />
+    <PackageReference Include="MediatR" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OrderTrackingApp.Application.Contracts\OrderTrackingApp.Application.Contracts.csproj" />
+    <ProjectReference Include="..\OrderTrackingApp.Domain\OrderTrackingApp.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
